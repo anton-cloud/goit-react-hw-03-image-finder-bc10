@@ -10,7 +10,7 @@ const initialState = {
   images:[],
   error:'',
   page: 1,
-  // isLoading:true
+  isLoading: false,
 }
 
 class App extends Component {
@@ -20,16 +20,19 @@ class App extends Component {
   
   componentDidUpdate(prevProps, prevState) {
     if(prevState.searchImg !== this.state.searchImg) {
+      this.setState({isLoading: true})
       fetchImages(this.state.searchImg).then(result => this.setState(prev => ({
        images: result.data.hits, 
        page: prev.page + 1,
       })))
+      .catch((error) => this.state({
+        error,
+      }))
+      .finally(() => this.setState({
+        isLoading: false,
+      }))
     }
   }
-
-      //   fetchImages(this.state.searchImg).then(result => this.setState(prev => ({
-      //   images: [...prev.images, ...result.data.hits]  
-      // }))) 
 
   onSubmit = (searchImg) => {
     if(searchImg !== '')
@@ -39,10 +42,21 @@ class App extends Component {
   }
 
   onLoadMore = () => {
+    this.setState({isLoading: true})
     fetchImages(this.state.searchImg, this.state.page).then(result => this.setState(prev => ({
       images: [...prev.images, ...result.data.hits],
       page: prev.page + 1,  
-    }))) 
+    })))
+    .catch((error) => this.setState({
+      error,
+    }))
+    .finally(() => 
+      window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    }),
+      this.setState({isLoading: false,})
+    )
   }
 
   render() {
