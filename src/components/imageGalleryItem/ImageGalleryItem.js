@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import { ImageGalleryItemStyled } from './ImageGalleryItemStyled';
 
 const ImageGalleryItem = ({image, onOpenModal}) => {
@@ -8,5 +9,11 @@ const ImageGalleryItem = ({image, onOpenModal}) => {
     </ImageGalleryItemStyled>
   );
 }
+
+ImageGalleryItem.propTypes = {
+  image: PropTypes.object,
+  onOpenModal: PropTypes.func,
+};
+
 
 export default ImageGalleryItem;
