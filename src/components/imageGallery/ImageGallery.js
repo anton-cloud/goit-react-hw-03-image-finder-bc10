@@ -3,10 +3,10 @@ import ImageGalleryItem from '../imageGalleryItem/ImageGalleryItem';
 import { ImageGalleryStyled } from './ImageGalleryStyled';
 
 
-const ImageGallery = ({images}) => {
+const ImageGallery = ({images, onOpenModal}) => {
   return (
     <ImageGalleryStyled>
-      {images.map((image) => <ImageGalleryItem image = {image} key = {image.id}/>)}
+      {images.map((image) => <ImageGalleryItem image = {image} onOpenModal = {onOpenModal} key = {image.id}/>)}
     </ImageGalleryStyled>
   );
 }
