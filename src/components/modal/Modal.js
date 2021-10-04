@@ -9,12 +9,16 @@ class Modal extends Component {
   state = {  }
 
   componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
+    window.addEventListener('keydown', this.handleKeyDown);    const body = document.querySelector("body");
+    body.style.overflow = "hidden";
+    body.style.position = "fixed";
   }
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
-    
+    const body = document.querySelector("body");
+    body.style.overflow = "auto";
+    body.style.position = "relative";
   }
 
   handleKeyDown = (e) => {
